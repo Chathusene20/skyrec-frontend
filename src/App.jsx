@@ -1,23 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import ProductCard from './components/productCard'
+import { useState } from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import AdminPage from "./pages/adminpage";
+import HomePage from "./pages/homepage";
+import TestPage from "./pages/test";
+import LoginPage from "./pages/loginPage";
+import RegistrationPage from "./pages/registrationPage";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import ForgetPassword from "./pages/forgetPassword";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-      <h1>Chathumini senethya</h1>
-   
-      <ProductCard name = "Apple ipad" price ="$499 " image = "https://www.apple.com/v/ipad-11/d/images/overview/connect/stream__b9rd2zagax1e_large_2x.jpg"/>
-      <ProductCard name ="Mac Book pro " price ="$1299" image = "https://tse1.mm.bing.net/th/id/OIP.T0RUfUTMEO1erwyCy1eWVwHaE7?cb=thfvnextfalcon4&rs=1&pid=ImgDetMain&o=7&rm=3"/>
-      
-      
-    </>
-  )
+    <BrowserRouter>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <div className="w-full h-[100vh]">
+        <Toaster position="top-right" />
+
+        <Routes>
+          <Route path="/*" element={<HomePage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/test" element={<TestPage />} />
+        </Routes>
+      </div>
+      </GoogleOAuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
