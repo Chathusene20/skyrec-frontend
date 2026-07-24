@@ -7,9 +7,9 @@ import AdminPage from "./pages/adminpage";
 import HomePage from "./pages/homepage.jsx";
 import TestPage from "./pages/test";
 import LoginPage from "./pages/loginPage";
-import RegistrationPage from "./pages/registrationPage";
+import RegistrationPage from "./pages/registrationPage.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import ForgetPassword from "./pages/forgetPassword";
+import ForgetPassword from "./pages/forgetPassword.jsx";
 
 function App() {
   const [count, setCount] = useState(0);

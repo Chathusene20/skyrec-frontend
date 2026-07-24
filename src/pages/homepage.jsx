@@ -1,9 +1,9 @@
 import { Route,Routes } from "react-router-dom"
 import Header from "../components/header"
 import { ProductPage } from "./productPage.jsx";
-import ProductOverview from "./productOverview"
-import CartPage from "./cart"
-import CheckoutPage from "./checkout"
+import ProductOverview from "./productOverview.jsx"
+import CartPage from "./cart.jsx"
+import CheckoutPage from "./checkout.jsx"
 
 export default function HomePage(){
      return (
