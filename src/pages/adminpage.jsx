@@ -10,11 +10,11 @@ import axios from "axios";
 
 import { Loader } from "../components/loader";
 
-import AdminProductPage from "./admin/adminProductPage";
-import AdminOrdersPage from "./admin/adminOrdersPage";
-import AddProductPage from "./admin/adminAddNewProducts";
-import UpdateProductPage from "./admin/adminUpdateProduct";
-import AdminUsersPage from "./admin/usersPage";
+import AdminProductPage from "./admin/adminproductpage.jsx";
+import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
+import AddProductPage from "./admin/adminAddNewProducts.jsx";
+import UpdateProductPage from "./admin/adminUpdateProduct.jsx";
+import AdminUsersPage from "./admin/usersPage.jsx";
 
 
 // Uncomment this only if you actually have usersPage.jsx
