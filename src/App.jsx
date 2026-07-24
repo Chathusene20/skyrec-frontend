@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import AdminPage from "./pages/adminpage";
-import HomePage from "./pages/homepage";
+import HomePage from "./pages/homepage.jsx";
 import TestPage from "./pages/test";
 import LoginPage from "./pages/loginPage";
 import RegistrationPage from "./pages/registrationPage";
