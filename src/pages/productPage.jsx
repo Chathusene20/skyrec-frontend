@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader } from "../components/loader";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/productCard.jsx";
 
 export function ProductPage() {
     const [products, setProducts] = useState([]);
