@@ -39,12 +39,7 @@ export default function UserData() {
 
 });
                
-                    
-                    
-                    
-               
-
-        } else {
+ } else {
 
             setLoading(false);
 
@@ -337,7 +332,7 @@ export default function UserData() {
                             </option>
 
 
-                            <option>
+                            <option value="/settings">
                                 Account Settings
                             </option>
 
