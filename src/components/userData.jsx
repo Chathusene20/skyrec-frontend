@@ -332,7 +332,7 @@ export default function UserData() {
                             </option>
 
 
-                            <option value="/settings">
+                            <option value="settings">
                                 Account Settings
                             </option>
 
