@@ -302,6 +302,12 @@ export default function UserData() {
                                     setIsLogoutConfirmOpen(true);
 
                                 }
+                                if(e.target.value === "settings"){
+                                    navigate("/settings");
+                                }
+                                if(e.target.value === "orders"){
+                                    navigate("/orders");
+                                }
 
                             }}
 
@@ -337,7 +343,7 @@ export default function UserData() {
                             </option>
 
 
-                            <option>
+                            <option value="orders">
                                 Orders
                             </option>
 
