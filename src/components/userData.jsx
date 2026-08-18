@@ -302,9 +302,12 @@ export default function UserData() {
                                     setIsLogoutConfirmOpen(true);
 
                                 }
-                                if(e.target.value === "settings"){
-                                    navigate("/settings");
+                                
+                                
+                                if (e.target.value === "settings") {
+                                window.location.href = "/settings";
                                 }
+                                
                                 if(e.target.value === "orders"){
                                     navigate("/orders");
                                 }
