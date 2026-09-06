@@ -12,7 +12,7 @@ export default function HomePage() {
             <Header />
 
             <Routes>
-                <Route
+                <Route 
                     path="/"
                     element={<h1>Welcome to the Home Page</h1>}
                 />
