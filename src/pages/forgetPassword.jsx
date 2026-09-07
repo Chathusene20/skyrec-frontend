@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function ForgetPassword(){
-   const {step, setStep} = useState("email")
+   const [step, setStep] = useState("email")
    const [email,setEmail] = useState("")
    const [otp,setOtp] = useState("")
    const [newPassword,setNewPassoword] = useState("")
@@ -13,8 +13,14 @@ export default function ForgetPassword(){
 
 
    async function sendOTP(){
+    // Check if email is empty
+    if (!email.trim()) {
+    toast.error("Please enter your email address");
+    return;
+  }
+
       try{
-        await axios.get(import.meta.env.VITE_API_URI +"/api/users/send-otp/="+email)
+        await axios.get(import.meta.env.VITE_API_URI +"/api/users/send-otp/"+email)
         toast.success("OTP sent to your email"+email)
         setStep("otp")
       }catch(e){
@@ -30,7 +36,7 @@ export default function ForgetPassword(){
     }
     try{
 
-      await axios.post(import.meta.env.VITE_API_URI + "/api/users/verify-otp",{
+      await axios.post(import.meta.env.VITE_API_URI + "/api/users/change-password",{
          email : email,
          otp : otp,
          newPassword : newPassword
@@ -54,12 +60,12 @@ export default function ForgetPassword(){
           <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Enter your email" className="w-full p-3 rounded-lg border border-secondary/20 mb-4 focus:outline-none focus:ring-2 focuss:ring-accent"/>
           <button className="w-full bg-accent text-white p-3 rounded-lg hover:bg-accent/90 transition" onClick={sendOTP}>Send OTP</button>
          </div>}
-         
+
         {step=="otp"&&<div className="w-[400px]  backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center p-6 ">
          <h1 className="text-2xl font-semibold text-secondary mb-6">Reset Password </h1>
          <input type="text" value={otp} onChange={(e)=> setOtp(e.target.value)} placeholder="Enter OTP" className="w-full p-3 rounded-lg border border-secondary/20 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"/>
          <input type="password" value={newPassword} onChange={(e) => setNewPassoword(e.target.value)} placeholder="Enter new password" className="w-full p-3 rounded-lg border border-secondary/20  mb-4 focus:outline-none focus:ring-2 focus:ring-accent"/>
-         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassoword(e.target.value)} placeholder="Confirm New Passsword" className="w-full p-3 rounded-lg border border-secondary/20  mb-4 focus:outline-none focus:ring-2 focus:ring-accent"/>
+         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm New Passsword" className="w-full p-3 rounded-lg border border-secondary/20  mb-4 focus:outline-none focus:ring-2 focus:ring-accent"/>
          <button className="w-full bg-accent text-white p-3 rounded-lg hover:bg-accent/90 transition" onClick={changePassword}>Change Password</button>
         </div>}
       </div>
