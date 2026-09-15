@@ -20,11 +20,14 @@ export default function ForgetPassword(){
   }
 
       try{
-        await axios.get(import.meta.env.VITE_API_URI +"/api/users/send-otp/"+email)
+        //error was...
+        //await axios.get(import.meta.env.VITE_API_URI +"/api/users/send-otp/"+email)
+        await axios.get(import.meta.env.VITE_API_URL +"/api/users/send-otp/"+email)
         toast.success("OTP sent to your email"+email)
         setStep("otp")
       }catch(e){
         console.error(e)
+        console.log(e.response)
         toast.error("Failed to send OTP. please try again.")
       }
    }
@@ -36,7 +39,7 @@ export default function ForgetPassword(){
     }
     try{
 
-      await axios.post(import.meta.env.VITE_API_URI + "/api/users/change-password",{
+      await axios.post(import.meta.env.VITE_API_URL + "/api/users/change-password",{
          email : email,
          otp : otp,
          newPassword : newPassword
