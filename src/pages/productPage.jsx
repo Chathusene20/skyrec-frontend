@@ -27,6 +27,22 @@ export function ProductPage() {
     return (
         
         <div className="w-full min-h-[calc(100vh-100px)] bg-primary">
+            <div className="w-full h-[100px] flex justify-center items-center"></div>
+             <input type="text" 
+             onChange={async (e)=>{
+                 try{
+                    if (e.target.value == ""){
+                        setIsLoading(true);
+                    }else {
+                        const searchResults = await axios.get (import.meta.env.VITE_API_URL + "/api/products/search/=" + e.target.value ); 
+                        setProduct(searchResult.data);
+                    }
+
+                 }catch{
+                    toast.error("Search Failed");
+                 }
+             }}
+             placeholder="Search products..." className="px-4 py-2 rounded-lg border border-secondary/30"/> 
             {isLoading ? (
                 <Loader />
             ) : (
