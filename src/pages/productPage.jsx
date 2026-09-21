@@ -35,7 +35,7 @@ export function ProductPage() {
                         setIsLoading(true);
                     }else {
                         const searchResults = await axios.get (import.meta.env.VITE_API_URL + "/api/products/search/=" + e.target.value ); 
-                        setProduct(searchResult.data);
+                        setProducts(searchResults.data);
                     }
 
                  }catch{
