@@ -12,7 +12,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import ForgetPassword from "./pages/forgetPassword.jsx";
 
 
-
 function App() {
   const [count, setCount] = useState(0);
 
