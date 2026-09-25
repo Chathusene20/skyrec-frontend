@@ -6,6 +6,7 @@ import CartPage from "./cart.jsx";
 import CheckoutPage from "./checkout.jsx";
 import UserSettings from "./settings.jsx";
 import AboutPage from "./aboutUs.jsx";
+import { HomePagee } from "./homePageContent.jsx";
 
 export default function HomePage() {
     return (
@@ -15,7 +16,7 @@ export default function HomePage() {
             <Routes>
                 <Route 
                     path="/"
-                    element={<h1>Welcome to the Home Page</h1>}
+                    element={<HomePagee/>}
                 />
 
                 <Route
