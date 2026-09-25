@@ -7,8 +7,7 @@ import CheckoutPage from "./checkout.jsx";
 import UserSettings from "./settings.jsx";
 import AboutPage from "./aboutUs.jsx";
 import { HomePagee } from "./homePageContent.jsx";
-import { ContactPage } from "./contactPage.jsx";
-
+import ContactPage from "./contactPage.jsx";
 
 export default function HomePage() {
     return (
