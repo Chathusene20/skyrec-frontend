@@ -1,33 +1,52 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js"
 
-const anonKey = "sb_publishable_OP5zayot03t1fuNmk8x75Q_IyNJUeS-";
-const supabaseUrl = "https://rbmiuvlczkdxsaiewlxr.supabase.co";
+const anonKey= "sb_publishable_OP5zayot03t1fuNmk8x75Q_IyNJUeS-"
+const supabaseUrl="https://rbmiuvlczkdxsaiewlxr.supabase.co"
 
-const supabase = createClient(supabaseUrl, anonKey);
+const supabase= createClient(supabaseUrl,anonKey);
 
-export default async function mediaUpload(file) {
-    if (!file) {
-        throw new Error("No file selected");
-    }
-
-    const timestamp = new Date().getTime();
-    const fileName = timestamp + "-" + file.name;
-
-    const { error } = await supabase.storage
-        .from("images")
-        .upload(fileName, file, {
+/*
+ supabase.storage.from("images").upload(file.name,  file , {
             upsert: false,
-            cacheControl: "3600",
-        });
+            casheControl: '3600',
+          }).then (
+            
+                ()=>{
+                    const publicUrl = supabase.storage.from("images").getPublicUrl(file.name).data.publicUrl
+                    console.log (publicUrl);
+                }
+            
+          )
+*/
 
-    if (error) {
-        console.error("Supabase upload error:", error);
-        throw error;
-    }
+export default function mediaUpload(file){
+    return new Promise((resolve,reject)=> {
+           if(file==null){
+            reject ("No file selected ");
+           }else {
+            const timestamp = new Date().getTime();
+            const fileName = timestamp+file.name
 
-    const { data } = supabase.storage
-        .from("images")
-        .getPublicUrl(fileName);
 
-    return data.publicUrl;
+            supabase.storage
+             .from("images")
+             .upload(fileName,  file, {
+                upsert: false,
+                cacheControl: '3600',
+          }).then ( ()=>{
+                    const publicUrl = supabase.storage
+                       .from("images")
+                       .getPublicUrl(fileName).data.publicUrl;
+
+                    resolve(publicUrl);
+                }
+            
+          ).catch(
+            ()=> {
+                reject ("An error occured")
+            }
+          )
+           }
+        }
+    );
 }
