@@ -194,15 +194,34 @@ export default function AboutPage() {
 
                 </div>
 
-                <div className="h-px bg-secondary/10 mb-8"></div>
+               <div className="h-px bg-secondary/10 mb-8"></div>
 
-                <p className="text-center text-2xl md:text-3xl font-semibold leading-relaxed text-primary">
+           <p className="text-center text-3xl md:text-4xl font-semibold leading-relaxed text-white">
 
-                  "Making quality beauty
-                  <span className="text-accent"> accessible </span>
-                  to you."
+              "Making quality beauty{" "}
 
-                </p>
+           <span
+              className="
+             text-accent
+             inline-block
+             animate-pulse
+             drop-shadow-[0_0_12px_rgba(255,106,28,0.6)]
+               "
+           >
+              accessible
+              </span>
+
+           {" "}to you."
+
+            </p>
+
+               
+
+               
+               
+               
+
+               
 
               </div>
 
