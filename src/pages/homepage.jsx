@@ -9,6 +9,7 @@ import AboutPage from "./aboutUs.jsx";
 import { HomePagee } from "./homePageContent.jsx";
 import { ContactPage } from "./contactPage.jsx";
 
+
 export default function HomePage() {
     return (
         <div className="w-full h-full bg-primary">
