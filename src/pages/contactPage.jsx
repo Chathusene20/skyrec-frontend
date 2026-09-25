@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function ContactPage() {
+export default function ContactPage() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -10,26 +10,35 @@ export function ContactPage() {
     });
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (
-            !formData.name ||
-            !formData.email ||
-            !formData.subject ||
-            !formData.message
-        ) {
-            toast.error("Please fill in all fields");
+        const { name, email, subject, message } = formData;
+
+        if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+            toast.error("Please fill in all fields.");
             return;
         }
 
-        toast.success("Thank you! Your message has been sent.");
+        // Opens the user's email application
+        const mailtoLink =
+            `mailto:chathuminisenethya246@gmail.com` +
+            `?subject=${encodeURIComponent(subject)}` +
+            `&body=${encodeURIComponent(
+                `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+            )}`;
+
+        window.location.href = mailtoLink;
+
+        toast.success("Opening your email application...");
 
         setFormData({
             name: "",
@@ -40,406 +49,214 @@ export function ContactPage() {
     };
 
     return (
-        <div className="w-full bg-primary text-secondary overflow-hidden">
+        <div className="min-h-screen bg-primary text-secondary">
 
-            {/* ================================================= */}
-            {/* HERO / CONTACT HEADER */}
-            {/* ================================================= */}
-
-            <section
-                className="
-                    relative
-                    min-h-[430px]
-                    flex
-                    items-center
-                    justify-center
-                    bg-cover
-                    bg-center
-                "
-                style={{
-                    backgroundImage: "url('/bg.jpg')",
-                }}
-            >
-
-                {/* Dark overlay */}
-
-                <div className="absolute inset-0 bg-secondary/80"></div>
-
-                {/* Orange glow */}
+            {/* =========================
+                HERO
+            ========================= */}
+            <section className="relative overflow-hidden">
 
                 <div
-                    className="
-                        absolute
-                        top-10
-                        left-10
-                        w-52
-                        h-52
-                        rounded-full
-                        bg-accent/20
-                        blur-3xl
-                        animate-float
-                    "
-                ></div>
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: "url('/bg.jpg')" }}
+                />
 
-                <div
-                    className="
-                        absolute
-                        bottom-10
-                        right-10
-                        w-64
-                        h-64
-                        rounded-full
-                        bg-accent/10
-                        blur-3xl
-                        animate-pulseGlow
-                    "
-                ></div>
+                <div className="absolute inset-0 bg-secondary/90" />
 
+                {/* Decorative circles */}
+                <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+                <div className="absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
 
-                {/* Header Content */}
+                <div className="relative z-10 mx-auto flex min-h-[380px] max-w-7xl items-center justify-center px-6 py-20 text-center">
 
-                <div className="relative z-10 text-center px-6 max-w-4xl">
+                    <div className="max-w-3xl">
 
-                    <p
-                        className="
-                            text-accent
-                            font-semibold
-                            uppercase
-                            tracking-[0.3em]
-                            mb-5
-                            animate-fadeInDown
-                        "
-                    >
-                        Crystal Beauty Clear
-                    </p>
-
-                    <h1
-                        className="
-                            text-5xl
-                            md:text-7xl
-                            font-bold
-                            text-white
-                            animate-fadeInUp
-                        "
-                    >
-                        Contact
-                        <span className="text-accent">
-                            {" "}Us
-                        </span>
-                    </h1>
-
-                    <p
-                        className="
-                            mt-6
-                            text-lg
-                            md:text-xl
-                            text-white/80
-                            max-w-2xl
-                            mx-auto
-                            leading-relaxed
-                            animate-fadeInUp
-                        "
-                        style={{ animationDelay: "0.2s" }}
-                    >
-                        Have a question, suggestion or need help with
-                        your order? We'd love to hear from you.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            {/* ================================================= */}
-            {/* CONTACT SECTION */}
-            {/* ================================================= */}
-
-            <section className="py-20 px-6">
-
-                <div className="max-w-7xl mx-auto">
-
-                    {/* Section heading */}
-
-                    <div className="text-center mb-14">
-
-                        <p className="text-accent font-semibold uppercase tracking-widest">
-                            Get in Touch
+                        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+                            Crystal Beauty Clear
                         </p>
 
-                        <h2 className="text-4xl md:text-5xl font-bold text-secondary mt-2">
-                            We'd Love to Hear From You
-                        </h2>
+                        <h1 className="text-5xl font-bold leading-tight text-white md:text-7xl">
+                            Let's
+                            <span className="text-accent"> Connect</span>
+                        </h1>
 
-                        <p className="text-secondary/60 mt-4 max-w-2xl mx-auto">
-                            Whether you have a question about our products,
-                            your order or anything else, our team is ready
-                            to help.
+                        <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/70 md:text-lg">
+                            Have a question about our products, your order, or
+                            anything else? We're always happy to hear from you.
                         </p>
 
                     </div>
+                </div>
+            </section>
 
 
-                    {/* Main contact grid */}
+            {/* =========================
+                CONTACT CONTENT
+            ========================= */}
+            <section className="px-6 py-16 md:py-24">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+                <div className="mx-auto max-w-6xl">
 
+                    <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
 
-                        {/* ===================================== */}
-                        {/* CONTACT INFORMATION */}
-                        {/* ===================================== */}
+                        {/* =========================
+                            CONTACT INFORMATION
+                        ========================= */}
+                        <div className="relative overflow-hidden rounded-3xl bg-secondary p-8 shadow-2xl md:p-10">
 
-                        <div
-                            className="
-                                relative
-                                bg-secondary
-                                rounded-[2rem]
-                                p-8
-                                md:p-10
-                                overflow-hidden
-                                shadow-2xl
-                                animate-fadeInUp
-                            "
-                        >
-
-                            {/* Decorative glow */}
-
-                            <div
-                                className="
-                                    absolute
-                                    -top-20
-                                    -right-20
-                                    w-64
-                                    h-64
-                                    rounded-full
-                                    bg-accent/20
-                                    blur-3xl
-                                "
-                            ></div>
-
+                            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
 
                             <div className="relative z-10">
 
-                                <p className="text-accent font-semibold uppercase tracking-widest">
+                                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
                                     Contact Information
                                 </p>
 
-                                <h3 className="text-3xl md:text-4xl font-bold text-white mt-3">
-                                    Let's talk about
-                                    <span className="text-accent">
-                                        {" "}beauty.
-                                    </span>
-                                </h3>
+                                <h2 className="mt-3 text-3xl font-bold leading-tight text-white md:text-4xl">
+                                    We're here to
+                                    <span className="text-accent"> help.</span>
+                                </h2>
 
-                                <p className="text-white/65 mt-5 leading-relaxed">
-                                    We're always happy to hear from our
-                                    customers. Reach out to us through
-                                    any of the channels below.
+                                <p className="mt-5 leading-7 text-white/60">
+                                    Whether you need help with an order, want to
+                                    ask a question, or simply want to share your
+                                    feedback, feel free to reach out.
                                 </p>
 
 
                                 {/* Email */}
-
-                                <div
-                                    className="
-                                        mt-10
-                                        flex
-                                        items-start
-                                        gap-5
-                                        p-5
-                                        rounded-2xl
-                                        bg-white/5
-                                        border
-                                        border-white/10
-                                        hover:bg-accent/10
-                                        hover:border-accent/30
-                                        transition-all
-                                        duration-300
-                                    "
+                                <a
+                                    href="mailto:chathuminisenethya246@gmail.com"
+                                    className="group mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition duration-300 hover:border-accent/40 hover:bg-accent/10"
                                 >
-
-                                    <div
-                                        className="
-                                            w-12
-                                            h-12
-                                            shrink-0
-                                            rounded-xl
-                                            bg-accent
-                                            flex
-                                            items-center
-                                            justify-center
-                                            text-xl
-                                        "
-                                    >
-                                        📧
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-white">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <rect
+                                                width="20"
+                                                height="16"
+                                                x="2"
+                                                y="4"
+                                                rx="2"
+                                            />
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                        </svg>
                                     </div>
 
-                                    <div>
-
-                                        <h4 className="text-white font-semibold">
+                                    <div className="min-w-0">
+                                        <p className="text-sm text-white/50">
                                             Email
-                                        </h4>
-
-                                        <p className="text-white/60 mt-1 break-all">
-                                            chathuminisenethya246@gmail.com
                                         </p>
 
+                                        <p className="mt-1 break-all font-medium text-white group-hover:text-accent">
+                                            chathuminisenethya246@gmail.com
+                                        </p>
                                     </div>
-
-                                </div>
+                                </a>
 
 
                                 {/* Phone */}
-
-                                <div
-                                    className="
-                                        mt-4
-                                        flex
-                                        items-start
-                                        gap-5
-                                        p-5
-                                        rounded-2xl
-                                        bg-white/5
-                                        border
-                                        border-white/10
-                                        hover:bg-accent/10
-                                        hover:border-accent/30
-                                        transition-all
-                                        duration-300
-                                    "
+                                <a
+                                    href="tel:+94740249751"
+                                    className="group mt-4 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition duration-300 hover:border-accent/40 hover:bg-accent/10"
                                 >
-
-                                    <div
-                                        className="
-                                            w-12
-                                            h-12
-                                            shrink-0
-                                            rounded-xl
-                                            bg-accent
-                                            flex
-                                            items-center
-                                            justify-center
-                                            text-xl
-                                        "
-                                    >
-                                        📱
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-white">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.8 12.8 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.8 12.8 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                        </svg>
                                     </div>
 
                                     <div>
-
-                                        <h4 className="text-white font-semibold">
+                                        <p className="text-sm text-white/50">
                                             Phone
-                                        </h4>
-
-                                        <p className="text-white/60 mt-1">
-                                            +94 74 024 9751
                                         </p>
 
+                                        <p className="mt-1 font-medium text-white group-hover:text-accent">
+                                            +94 74 024 9751
+                                        </p>
                                     </div>
-
-                                </div>
+                                </a>
 
 
                                 {/* Location */}
+                                <div className="mt-4 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4">
 
-                                <div
-                                    className="
-                                        mt-4
-                                        flex
-                                        items-start
-                                        gap-5
-                                        p-5
-                                        rounded-2xl
-                                        bg-white/5
-                                        border
-                                        border-white/10
-                                        hover:bg-accent/10
-                                        hover:border-accent/30
-                                        transition-all
-                                        duration-300
-                                    "
-                                >
-
-                                    <div
-                                        className="
-                                            w-12
-                                            h-12
-                                            shrink-0
-                                            rounded-xl
-                                            bg-accent
-                                            flex
-                                            items-center
-                                            justify-center
-                                            text-xl
-                                        "
-                                    >
-                                        📍
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-white">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
                                     </div>
 
                                     <div>
-
-                                        <h4 className="text-white font-semibold">
+                                        <p className="text-sm text-white/50">
                                             Location
-                                        </h4>
-
-                                        <p className="text-white/60 mt-1">
-                                            Sri Lanka
                                         </p>
 
+                                        <p className="mt-1 font-medium text-white">
+                                            Sri Lanka
+                                        </p>
                                     </div>
 
                                 </div>
 
 
-                                {/* Small quote */}
+                                {/* Divider */}
+                                <div className="my-8 h-px bg-white/10" />
 
-                                <div className="mt-10 pt-8 border-t border-white/10">
-
-                                    <p className="text-white/80 italic text-lg leading-relaxed">
-                                        "Making quality beauty
-                                        <span className="text-accent">
-                                            {" "}accessible
-                                        </span>
-                                        {" "}to you."
-                                    </p>
-
-                                </div>
+                                <p className="text-lg italic leading-7 text-white/70">
+                                    "Beauty made simple,
+                                    <span className="text-accent">
+                                        {" "}accessible
+                                    </span>
+                                    {" "}and trusted."
+                                </p>
 
                             </div>
-
                         </div>
 
 
-                        {/* ===================================== */}
-                        {/* CONTACT FORM */}
-                        {/* ===================================== */}
+                        {/* =========================
+                            CONTACT FORM
+                        ========================= */}
+                        <div className="rounded-3xl border border-secondary/10 bg-white p-8 shadow-xl md:p-10">
 
-                        <div
-                            className="
-                                bg-white/70
-                                backdrop-blur-xl
-                                rounded-[2rem]
-                                p-8
-                                md:p-10
-                                border
-                                border-secondary/10
-                                shadow-xl
-                                animate-fadeInUp
-                            "
-                            style={{ animationDelay: "0.2s" }}
-                        >
+                            <div>
 
-                            <p className="text-accent font-semibold uppercase tracking-widest">
-                                Send a Message
-                            </p>
+                                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
+                                    Send a Message
+                                </p>
 
-                            <h3 className="text-3xl md:text-4xl font-bold text-secondary mt-3">
-                                How can we help?
-                            </h3>
+                                <h2 className="mt-3 text-3xl font-bold text-secondary md:text-4xl">
+                                    How can we help?
+                                </h2>
 
-                            <p className="text-secondary/60 mt-4">
-                                Fill out the form below and we'll get
-                                back to you as soon as possible.
-                            </p>
+                                <p className="mt-3 leading-7 text-secondary/60">
+                                    Fill out the form and we'll help you with
+                                    your questions or concerns.
+                                </p>
+
+                            </div>
 
 
                             <form
@@ -447,172 +264,110 @@ export function ContactPage() {
                                 className="mt-8 space-y-5"
                             >
 
-                                {/* Name */}
+                                {/* Name + Email */}
+                                <div className="grid gap-5 md:grid-cols-2">
 
-                                <div>
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="mb-2 block text-sm font-semibold text-secondary"
+                                        >
+                                            Your Name
+                                        </label>
 
-                                    <label className="block text-sm font-semibold text-secondary mb-2">
-                                        Your Name
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="Enter your name"
-                                        className="
-                                            w-full
-                                            px-5
-                                            py-4
-                                            rounded-xl
-                                            bg-primary
-                                            border
-                                            border-secondary/10
-                                            text-secondary
-                                            placeholder:text-secondary/40
-                                            outline-none
-                                            focus:border-accent
-                                            focus:ring-4
-                                            focus:ring-accent/10
-                                            transition-all
-                                            duration-300
-                                        "
-                                    />
-
-                                </div>
+                                        <input
+                                            id="name"
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            placeholder="Your name"
+                                            className="w-full rounded-xl border border-secondary/10 bg-primary px-4 py-3.5 text-secondary outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10"
+                                        />
+                                    </div>
 
 
-                                {/* Email */}
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="mb-2 block text-sm font-semibold text-secondary"
+                                        >
+                                            Email Address
+                                        </label>
 
-                                <div>
-
-                                    <label className="block text-sm font-semibold text-secondary mb-2">
-                                        Email Address
-                                    </label>
-
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        placeholder="Enter your email"
-                                        className="
-                                            w-full
-                                            px-5
-                                            py-4
-                                            rounded-xl
-                                            bg-primary
-                                            border
-                                            border-secondary/10
-                                            text-secondary
-                                            placeholder:text-secondary/40
-                                            outline-none
-                                            focus:border-accent
-                                            focus:ring-4
-                                            focus:ring-accent/10
-                                            transition-all
-                                            duration-300
-                                        "
-                                    />
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="you@example.com"
+                                            className="w-full rounded-xl border border-secondary/10 bg-primary px-4 py-3.5 text-secondary outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10"
+                                        />
+                                    </div>
 
                                 </div>
 
 
                                 {/* Subject */}
-
                                 <div>
-
-                                    <label className="block text-sm font-semibold text-secondary mb-2">
+                                    <label
+                                        htmlFor="subject"
+                                        className="mb-2 block text-sm font-semibold text-secondary"
+                                    >
                                         Subject
                                     </label>
 
                                     <input
+                                        id="subject"
                                         type="text"
                                         name="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
-                                        placeholder="What is this about?"
-                                        className="
-                                            w-full
-                                            px-5
-                                            py-4
-                                            rounded-xl
-                                            bg-primary
-                                            border
-                                            border-secondary/10
-                                            text-secondary
-                                            placeholder:text-secondary/40
-                                            outline-none
-                                            focus:border-accent
-                                            focus:ring-4
-                                            focus:ring-accent/10
-                                            transition-all
-                                            duration-300
-                                        "
+                                        placeholder="What can we help you with?"
+                                        className="w-full rounded-xl border border-secondary/10 bg-primary px-4 py-3.5 text-secondary outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10"
                                     />
-
                                 </div>
 
 
                                 {/* Message */}
-
                                 <div>
-
-                                    <label className="block text-sm font-semibold text-secondary mb-2">
+                                    <label
+                                        htmlFor="message"
+                                        className="mb-2 block text-sm font-semibold text-secondary"
+                                    >
                                         Message
                                     </label>
 
                                     <textarea
+                                        id="message"
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}
-                                        placeholder="Write your message..."
-                                        rows="5"
-                                        className="
-                                            w-full
-                                            px-5
-                                            py-4
-                                            rounded-xl
-                                            bg-primary
-                                            border
-                                            border-secondary/10
-                                            text-secondary
-                                            placeholder:text-secondary/40
-                                            outline-none
-                                            resize-none
-                                            focus:border-accent
-                                            focus:ring-4
-                                            focus:ring-accent/10
-                                            transition-all
-                                            duration-300
-                                        "
-                                    ></textarea>
-
+                                        placeholder="Write your message here..."
+                                        rows={6}
+                                        className="w-full resize-none rounded-xl border border-secondary/10 bg-primary px-4 py-3.5 text-secondary outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/10"
+                                    />
                                 </div>
 
 
                                 {/* Submit */}
-
                                 <button
                                     type="submit"
-                                    className="
-                                        w-full
-                                        py-4
-                                        rounded-xl
-                                        bg-accent
-                                        text-white
-                                        font-semibold
-                                        text-lg
-                                        shadow-lg
-                                        shadow-accent/20
-                                        hover:scale-[1.02]
-                                        hover:shadow-accent/40
-                                        transition-all
-                                        duration-300
-                                    "
+                                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 font-semibold text-white shadow-lg shadow-accent/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/30"
                                 >
-                                    Send Message →
+                                    Send Message
+
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                    >
+                                        <path d="m5 12 14-7-7 14-2-6-5-1Z" />
+                                    </svg>
                                 </button>
 
                             </form>
@@ -622,46 +377,30 @@ export function ContactPage() {
                     </div>
 
                 </div>
-
             </section>
 
 
-            {/* ================================================= */}
-            {/* BOTTOM MESSAGE */}
-            {/* ================================================= */}
+            {/* =========================
+                BOTTOM CTA
+            ========================= */}
+            <section className="px-6 pb-20">
 
-            <section className="px-6 pb-24">
+                <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-secondary px-8 py-12 text-center shadow-xl md:py-16">
 
-                <div
-                    className="
-                        max-w-5xl
-                        mx-auto
-                        text-center
-                        rounded-[2rem]
-                        bg-secondary
-                        px-8
-                        py-14
-                        shadow-xl
-                        relative
-                        overflow-hidden
-                    "
-                >
+                    <div className="mx-auto max-w-2xl">
 
-                    <div className="absolute inset-0 bg-accent/5"></div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
+                            Crystal Beauty Clear
+                        </p>
 
-                    <div className="relative z-10">
-
-                        <div className="text-5xl mb-5 animate-float">
-                            💕
-                        </div>
-
-                        <h2 className="text-3xl md:text-4xl font-bold text-white">
-                            We're here for you.
+                        <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+                            Your beauty journey matters to us.
                         </h2>
 
-                        <p className="text-white/65 max-w-xl mx-auto mt-4">
-                            Your questions, feedback and ideas help us
-                            create a better beauty experience for everyone.
+                        <p className="mx-auto mt-4 max-w-xl leading-7 text-white/60">
+                            Thank you for choosing Crystal Beauty Clear.
+                            We're always here to listen, help and make your
+                            experience better.
                         </p>
 
                     </div>
