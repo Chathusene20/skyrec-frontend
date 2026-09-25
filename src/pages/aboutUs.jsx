@@ -177,7 +177,7 @@ export default function AboutPage() {
                   rounded-3xl
                   border
                   border-secondary/10
-                  bg-gray-300
+                  bg-secondary
                   backdrop-blur-xl
                   shadow-[0_20px_50px_rgba(6,32,43,0.10)]
                   p-10
