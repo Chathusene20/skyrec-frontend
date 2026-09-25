@@ -8,144 +8,83 @@ export default function UserSettings() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [image, setImage] = useState("");
-    const [imageFile, setImageFile] = useState(null);
-
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [user, setUser] = useState(null);
+    const navigate = useNavigate()
 
-    const navigate = useNavigate();
-
-    // Get current user data
-    useEffect(() => {
+    useEffect (()=>{
         const token = localStorage.getItem("token");
-
         if (!token) {
             window.location.href = "/login";
             return;
         }
+        axios.get(import.meta.env.VITE_API_URL + "/api/users/me",{
+            headers:{Authorization: `Bearer ${token}`
+         },
+        })
+        .then((res) => {
+             setFirstName(res.data.firstName);
+             setLastName(res.data.lastName);
+             setUser(res.data);
+        }).catch(()=>{
+           localStorage.removeItem("token");
+           window.location.href = "/login";
+        });
+    },[]);
 
-        axios
-            .get(import.meta.env.VITE_API_URL + "/api/users/me", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
+     async function updateUserData()  {
+       const data = {
+         firstName: firstName,
+         lastName: lastName,
+         image: user.image
+       }
+       if(image !=null){
+         const link = await mediaUpload(image);
+         image.profilePicture = link; 
 
-                // Set existing profile image
-                setImage(res.data.image || "");
+       }
 
-                setUser(res.data);
-            })
-            .catch((err) => {
-                console.error("Error loading user:", err);
-
-                localStorage.removeItem("token");
-                window.location.href = "/login";
-            });
-    }, []);
-
-    // Update user information
-    async function updateUserData() {
-        try {
-            if (!user) {
-                toast.error("User information not loaded");
-                return;
-            }
-
-            // Keep existing image unless a new image is selected
-            let imageLink = user.image || "";
-
-            // Upload new image if selected
-            if (imageFile) {
-                imageLink = await mediaUpload(imageFile);
-            }
-
-            const data = {
-                firstName: firstName,
-                lastName: lastName,
-                image: imageLink,
-            };
-
-            await axios.put(
-                import.meta.env.VITE_API_URL + "/api/users/me",
-                data,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }
-            );
-
-            toast.success("Profile updated successfully");
-
-            // Update local user state
-            setUser({
-                ...user,
-                firstName: firstName,
-                lastName: lastName,
-                image: imageLink,
-            });
-
-            // Clear selected file
-            setImageFile(null);
-
-            navigate("/");
-        } catch (err) {
+        await axios.put(import.meta.env.VITE_API_URL + "/api/users/me",data,{
+            headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`},
+        }).then(()=>{
+            alert ("Profile updating successfully");
+        
+        }).catch((err)=>{
             console.error("Error updating profile:", err);
-            toast.error("Failed to update profile");
+            alert("Failed to update profile");
+        });
+        navigate("/");
+        };
+    
+
+    async function updatePassword ()  {
+        if (password !== confirmPassword){
+            toast.error("Password do not match");
+            return; 
         }
-    }
+        await axios.put (import.meta.env.VITE_API_URL + "/api/users/me/password",
+            {
+                password:password,
+            },{
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
 
-    // Update password
-    async function updatePassword() {
-        if (password !== confirmPassword) {
-            toast.error("Passwords do not match");
-            return;
-        }
-
-        if (!password) {
-            toast.error("Please enter a new password");
-            return;
-        }
-
-        try {
-            await axios.put(
-                import.meta.env.VITE_API_URL + "/api/users/me/password",
-                {
-                    password: password,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }
-            );
-
-            toast.success("Password updated successfully");
-
-            setPassword("");
-            setConfirmPassword("");
-
+            }).then(()=>{
+                toast.success("Password updated successfully");
+                setPassword("");
+                setConfirmPassword("");
+            }).catch((err)=>{
+                console.error("Error updating password", err);
+                toast.error("Failed to update password");
+            });
             navigate("/");
-        } catch (err) {
-            console.error("Error updating password:", err);
-            toast.error("Failed to update password");
-        }
-    }
+    };
 
-    // Handle profile image selection
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
 
         if (file) {
-            // Store actual file for uploading
-            setImageFile(file);
-
-            // Create preview URL
             setImage(URL.createObjectURL(file));
         }
     };
@@ -240,6 +179,7 @@ export default function UserSettings() {
                     </button>
 
                 </div>
+
 
                 {/* RIGHT PANEL - CHANGE PASSWORD */}
                 <div className="w-full lg:w-1/2 min-h-[550px] bg-primary/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/30 flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] animate-[fadeInRight_0.7s_ease-out]">
