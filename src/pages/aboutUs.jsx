@@ -196,7 +196,7 @@ export default function AboutPage() {
 
                 <div className="h-px bg-secondary/10 mb-8"></div>
 
-                <p className="text-center text-2xl md:text-3xl font-semibold leading-relaxed text-secondary">
+                <p className="text-center text-2xl md:text-3xl font-semibold leading-relaxed text-primary">
 
                   "Making quality beauty
                   <span className="text-accent"> accessible </span>
