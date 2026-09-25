@@ -31,8 +31,8 @@ export function ProductPage() {
              <input type="text" 
              onChange={async (e)=>{
                  try{
-                    if (e.target.value === ""){
-                        setIsLoading(true);
+                    if (e.target.value == ""){
+                        setLoading(true);
                     }else {
                         const searchResults = await axios.get (import.meta.env.VITE_API_URL + "/api/products/search/" + e.target.value ); 
                         setProducts(searchResults.data);
