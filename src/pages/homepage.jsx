@@ -7,6 +7,7 @@ import CheckoutPage from "./checkout.jsx";
 import UserSettings from "./settings.jsx";
 import AboutPage from "./aboutUs.jsx";
 import { HomePagee } from "./homePageContent.jsx";
+import { ContactPage } from "./contactPage.jsx";
 
 export default function HomePage() {
     return (
@@ -26,7 +27,7 @@ export default function HomePage() {
 
                 <Route
                     path="/contact"
-                    element={<h1>Contact Us</h1>}
+                    element={<ContactPage/>}
                 />
 
                 <Route
