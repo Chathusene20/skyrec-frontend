@@ -165,26 +165,11 @@ export default function AboutPage() {
             </div>
 
 
-            {/* =================================================
-                LOGO BOX - ONLY THIS PART IS MODIFIED
-            ================================================== */}
+            {/* Right Glass Card */}
 
             <div className="relative">
 
-              {/* Soft orange glow behind the box */}
-
-              <div
-                className="
-                  absolute
-                  -inset-3
-                  rounded-3xl
-                  bg-accent/10
-                  blur-2xl
-                "
-              ></div>
-
-
-              {/* Main Box */}
+              <div className="absolute -inset-4 bg-accent/15 blur-3xl rounded-full"></div>
 
               <div
                 className="
@@ -192,103 +177,26 @@ export default function AboutPage() {
                   rounded-3xl
                   border
                   border-secondary/10
-                  bg-[#FFF8E8]
+                  bg-secondary
                   backdrop-blur-xl
-                  shadow-[0_20px_50px_rgba(6,32,43,0.14)]
+                  shadow-[0_20px_50px_rgba(6,32,43,0.10)]
                   p-10
-                  overflow-hidden
                 "
               >
 
-                {/* Small decorative orange line */}
-
-                <div
-                  className="
-                    absolute
-                    top-0
-                    left-10
-                    right-10
-                    h-1
-                    rounded-full
-                    bg-accent/70
-                  "
-                ></div>
-
-
-                {/* Logo Area */}
-
                 <div className="flex justify-center mb-8">
 
-                  {/* Soft glow around logo */}
-
-                  <div
-                    className="
-                      relative
-                      flex
-                      items-center
-                      justify-center
-                      w-full
-                      max-w-sm
-                      min-h-[220px]
-                      rounded-2xl
-                      bg-secondary
-                      border
-                      border-accent/20
-                      shadow-[0_12px_35px_rgba(6,32,43,0.20)]
-                      overflow-hidden
-                    "
-                  >
-
-                    {/* Subtle orange glow */}
-
-                    <div
-                      className="
-                        absolute
-                        w-48
-                        h-48
-                        rounded-full
-                        bg-accent/15
-                        blur-3xl
-                      "
-                    ></div>
-
-
-                    {/* Logo */}
-
-                    <img
-                      src="/skyrec logo.png"
-                      alt="Crystal Beauty Clear"
-                      className="
-                        relative
-                        z-10
-                        w-52
-                        object-contain
-                        drop-shadow-[0_4px_12px_rgba(255,106,28,0.25)]
-                      "
-                    />
-
-                  </div>
+                  <img
+                    src="/skyrec logo.png"
+                    alt="Crystal Beauty Clear"
+                    className="w-52"
+                  />
 
                 </div>
 
-
-                {/* Divider */}
-
                 <div className="h-px bg-secondary/10 mb-8"></div>
 
-
-                {/* Quote */}
-
-                <p
-                  className="
-                    text-center
-                    text-2xl
-                    md:text-3xl
-                    font-semibold
-                    leading-relaxed
-                    text-secondary
-                  "
-                >
+                <p className="text-center text-2xl md:text-3xl font-semibold leading-relaxed text-secondary">
 
                   "Making quality beauty
                   <span className="text-accent"> accessible </span>
@@ -403,21 +311,19 @@ export default function AboutPage() {
               "
             >
 
-              <div
-                className="
-                  w-16
-                  h-16
-                  mx-auto
-                  rounded-2xl
-                  bg-accent/10
-                  flex
-                  items-center
-                  justify-center
-                  mb-5
-                  group-hover:bg-accent/20
-                  transition
-                "
-              >
+              <div className="
+                w-16
+                h-16
+                mx-auto
+                rounded-2xl
+                bg-accent/10
+                flex
+                items-center
+                justify-center
+                mb-5
+                group-hover:bg-accent/20
+                transition
+              ">
 
                 <span className="text-3xl">
                   ✨
@@ -457,21 +363,19 @@ export default function AboutPage() {
               "
             >
 
-              <div
-                className="
-                  w-16
-                  h-16
-                  mx-auto
-                  rounded-2xl
-                  bg-accent/10
-                  flex
-                  items-center
-                  justify-center
-                  mb-5
-                  group-hover:bg-accent/20
-                  transition
-                "
-              >
+              <div className="
+                w-16
+                h-16
+                mx-auto
+                rounded-2xl
+                bg-accent/10
+                flex
+                items-center
+                justify-center
+                mb-5
+                group-hover:bg-accent/20
+                transition
+              ">
 
                 <span className="text-3xl">
                   💄
@@ -511,21 +415,19 @@ export default function AboutPage() {
               "
             >
 
-              <div
-                className="
-                  w-16
-                  h-16
-                  mx-auto
-                  rounded-2xl
-                  bg-accent/10
-                  flex
-                  items-center
-                  justify-center
-                  mb-5
-                  group-hover:bg-accent/20
-                  transition
-                "
-              >
+              <div className="
+                w-16
+                h-16
+                mx-auto
+                rounded-2xl
+                bg-accent/10
+                flex
+                items-center
+                justify-center
+                mb-5
+                group-hover:bg-accent/20
+                transition
+              ">
 
                 <span className="text-3xl">
                   🌸
@@ -565,21 +467,19 @@ export default function AboutPage() {
               "
             >
 
-              <div
-                className="
-                  w-16
-                  h-16
-                  mx-auto
-                  rounded-2xl
-                  bg-accent/10
-                  flex
-                  items-center
-                  justify-center
-                  mb-5
-                  group-hover:bg-accent/20
-                  transition
-                "
-              >
+              <div className="
+                w-16
+                h-16
+                mx-auto
+                rounded-2xl
+                bg-accent/10
+                flex
+                items-center
+                justify-center
+                mb-5
+                group-hover:bg-accent/20
+                transition
+              ">
 
                 <span className="text-3xl">
                   🌹
@@ -619,21 +519,19 @@ export default function AboutPage() {
               "
             >
 
-              <div
-                className="
-                  w-16
-                  h-16
-                  mx-auto
-                  rounded-2xl
-                  bg-accent/10
-                  flex
-                  items-center
-                  justify-center
-                  mb-5
-                  group-hover:bg-accent/20
-                  transition
-                "
-              >
+              <div className="
+                w-16
+                h-16
+                mx-auto
+                rounded-2xl
+                bg-accent/10
+                flex
+                items-center
+                justify-center
+                mb-5
+                group-hover:bg-accent/20
+                transition
+              ">
 
                 <span className="text-3xl">
                   🪞
