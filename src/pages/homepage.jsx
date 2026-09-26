@@ -8,6 +8,7 @@ import UserSettings from "./settings.jsx";
 import AboutPage from "./aboutUs.jsx";
 import { HomePagee } from "./homePageContent.jsx";
 import ContactPage from "./contactPage.jsx";
+import OrdersPage from "./ordersPage.jsx";
 
 export default function HomePage() {
     return (
@@ -57,8 +58,13 @@ export default function HomePage() {
                 />
 
                 <Route
-                    path="/*"
-                    element={<h1>404 Not found</h1>}
+                    path="/orders"
+                    element={<OrdersPage />}
+                />
+
+                <Route 
+                path="/*" 
+                element={<h1>404 Not found</h1>} 
                 />
             </Routes>
         </div>
