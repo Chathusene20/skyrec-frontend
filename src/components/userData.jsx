@@ -337,8 +337,12 @@ export default function UserData() {
 
                         >
 
-                            <option value="menu">
+                            <option value="">
                                 Menu
+                            </option>
+
+                            <option value="menu">
+                               Go to Menu
                             </option>
 
 
