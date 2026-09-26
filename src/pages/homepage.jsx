@@ -9,6 +9,7 @@ import AboutPage from "./aboutUs.jsx";
 import { HomePagee } from "./homePageContent.jsx";
 import ContactPage from "./contactPage.jsx";
 import OrdersPage from "./ordersPage.jsx";
+import MenuPage from "./menuPage.jsx";
 
 export default function HomePage() {
     return (
@@ -24,6 +25,11 @@ export default function HomePage() {
                 <Route
                     path="/products"
                     element={<ProductPage />}
+                />
+
+                <Route
+                path="/menu"
+                element={<MenuPage />}
                 />
 
                 <Route
