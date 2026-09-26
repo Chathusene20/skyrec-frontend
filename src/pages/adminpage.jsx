@@ -14,6 +14,7 @@ import AdminProductPage from "./admin/adminproductpage.jsx";
 import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
 import AddProductPage from "./admin/adminAddNewProducts.jsx";
 import UpdateProductPage from "./admin/adminUpdateProduct.jsx";
+import AdminUsersPage from "./admin/usersPage.jsx";
 
 
 
