@@ -297,6 +297,10 @@ export default function UserData() {
 
                             onChange={(e)=>{
 
+                                if (e.target.value === "menu") {
+                                navigate("/menu");
+                                }
+
                                 if(e.target.value === "logout"){
 
                                     setIsLogoutConfirmOpen(true);
@@ -333,7 +337,7 @@ export default function UserData() {
 
                         >
 
-                            <option value="">
+                            <option value="menu">
                                 Menu
                             </option>
 
