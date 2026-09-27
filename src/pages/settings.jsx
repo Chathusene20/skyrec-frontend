@@ -8,6 +8,7 @@ export default function UserSettings() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [image, setImage] = useState("");
+    const [imageFile, setImageFile] = useState(null);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [user, setUser] = useState(null);
@@ -24,70 +25,110 @@ export default function UserSettings() {
          },
         })
         .then((res) => {
-             setFirstName(res.data.firstName);
-             setLastName(res.data.lastName);
-             setUser(res.data);
+        setFirstName(res.data.firstName);
+        setLastName(res.data.lastName);
+        setImage(res.data.image || "/user.png");
+        setUser(res.data);
         }).catch(()=>{
            localStorage.removeItem("token");
            window.location.href = "/login";
         });
     },[]);
 
-     async function updateUserData()  {
-       const data = {
-         firstName: firstName,
-         lastName: lastName,
-         image: user.image
-       }
-       if(image !=null){
-         const link = await mediaUpload(image);
-         image.profilePicture = link; 
+     
+     
+     async function updateUserData() {
 
-       }
+    try {
 
-        await axios.put(import.meta.env.VITE_API_URL + "/api/users/me",data,{
-            headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`},
-        }).then(()=>{
-            alert ("Profile updating successfully");
-        
-        }).catch((err)=>{
-            console.error("Error updating profile:", err);
-            alert("Failed to update profile");
-        });
-        navigate("/");
+        let imageLink = user?.image || "/user.png";
+
+        if (imageFile) {
+            imageLink = await mediaUpload(imageFile);
+        }
+
+        const data = {
+            firstName: firstName,
+            lastName: lastName,
+            image: imageLink
         };
+
+        const res = await axios.put(
+            import.meta.env.VITE_API_URL + "/api/users/me",
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        );
+
+        setUser(res.data.user);
+        setImage(res.data.user.image);
+
+        toast.success("Profile updated successfully");
+
+    } catch (err) {
+
+        console.error(
+            "Error updating profile:",
+            err.response?.data || err
+        );
+
+        toast.error("Failed to update profile");
+    }
+}
+     
+    async function updatePassword() {
+    if (password !== confirmPassword) {
+        toast.error("Passwords do not match");
+        return;
+    }
+
+    try {
+        await axios.put(
+            import.meta.env.VITE_API_URL + "/api/users/me/password",
+            {
+                password: password,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        );
+
+        toast.success("Password updated successfully");
+
+        setPassword("");
+        setConfirmPassword("");
+
+        navigate("/");
+    } catch (err) {
+        console.error("Error updating password:", err);
+        toast.error("Failed to update password");
+    }
+} 
+     
+     
+     
     
 
-    async function updatePassword ()  {
-        if (password !== confirmPassword){
-            toast.error("Password do not match");
-            return; 
-        }
-        await axios.put (import.meta.env.VITE_API_URL + "/api/users/me/password",
-            {
-                password:password,
-            },{
-                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
 
-            }).then(()=>{
-                toast.success("Password updated successfully");
-                setPassword("");
-                setConfirmPassword("");
-            }).catch((err)=>{
-                console.error("Error updating password", err);
-                toast.error("Failed to update password");
-            });
-            navigate("/");
-    };
+   const handleImageChange = (e) => {
+    const file = e.target.files[0];
 
+    if (file) {
+        setImageFile(file);
+        setImage(URL.createObjectURL(file));
+    }
+};
+   
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-
-        if (file) {
-            setImage(URL.createObjectURL(file));
-        }
-    };
+   
+   
+   
+   
 
     return (
         <div className="w-full min-h-screen bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat flex items-center justify-center px-6 py-12">
