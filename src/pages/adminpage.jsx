@@ -15,6 +15,7 @@ import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
 import AddProductPage from "./admin/adminAddNewProducts.jsx";
 import UpdateProductPage from "./admin/adminUpdateProduct.jsx";
 import AdminUsersPage from "./admin/usersPage.jsx";
+import AdminDashboard from "./admin/adminDashboard.jsx";
 
 
 
@@ -118,7 +119,8 @@ export default function AdminPage() {
 
           {userLoaded ? (
             <Routes>
-              <Route path="/" element={<h1>Dashboard</h1>} />
+              <Route path="/" element={<AdminDashboard/>} 
+              />
 
               <Route
                 path="/products"
