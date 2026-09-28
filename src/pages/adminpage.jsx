@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-import { Loader } from "../components/loader";
 
 import AdminProductPage from "./admin/adminproductpage.jsx";
 import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
@@ -149,7 +148,9 @@ export default function AdminPage() {
 
             </Routes>
           ) : (
-            <Loader />
+            <div className="flex justify-center items-center h-full">
+             Loading...
+            </div>
           )}
 
         </div>
