@@ -6,10 +6,12 @@
     --color-secondary: #06202B;
 
     /* Homepage animations */
+    --animate-fadeIn: fadeIn 0.4s ease-out;
     --animate-fadeInUp: fadeInUp 0.8s ease-out;
     --animate-fadeInDown: fadeInDown 0.8s ease-out;
     --animate-float: float 4s ease-in-out infinite;
     --animate-pulseGlow: pulseGlow 2s ease-in-out infinite;
+   
 
     @keyframes fadeInUp {
         from {
@@ -58,4 +60,17 @@
             opacity: 0.8;
         }
     }
+    
+        @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
 }
