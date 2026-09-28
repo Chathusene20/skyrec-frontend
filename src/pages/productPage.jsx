@@ -5,11 +5,14 @@ import { Loader } from "../components/loader";
 import ProductCard from "../components/productCard.jsx";
 
 export function ProductPage() {
+
     const [products, setProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
+
         if (isLoading) {
+
             axios
                 .get(import.meta.env.VITE_API_URL + "/api/products")
                 .then((response) => {
@@ -21,352 +24,557 @@ export function ProductPage() {
                     setLoading(false);
                     toast.error("Failed to load products");
                 });
+
         }
+
     }, [isLoading]);
 
+
     return (
+
         <div className="w-full min-h-screen bg-primary text-secondary">
 
-            {/* ================= SEARCH / HERO SECTION ================= */}
-            <section className="w-full px-6 pt-24 pb-16">
-                <div className="max-w-6xl mx-auto">
+            {/* =====================================================
+                HERO / SEARCH SECTION
+            ====================================================== */}
+
+            <section
+                className="
+                    relative
+                    w-full
+                    min-h-[600px]
+                    flex
+                    items-center
+                    overflow-hidden
+                "
+                style={{
+                    backgroundImage:
+                        "linear-gradient(rgba(255,241,211,0.82), rgba(255,241,211,0.96)), url('/products-bg.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+
+                {/* Decorative Orange Circle */}
+
+                <div
+                    className="
+                        absolute
+                        -top-32
+                        -right-32
+                        w-[420px]
+                        h-[420px]
+                        rounded-full
+                        bg-accent/15
+                        blur-3xl
+                    "
+                ></div>
+
+
+                {/* Decorative Navy Circle */}
+
+                <div
+                    className="
+                        absolute
+                        -bottom-40
+                        -left-40
+                        w-[500px]
+                        h-[500px]
+                        rounded-full
+                        bg-secondary/10
+                        blur-3xl
+                    "
+                ></div>
+
+
+                {/* Hero Content */}
+
+                <div
+                    className="
+                        relative
+                        z-10
+                        w-full
+                        max-w-6xl
+                        mx-auto
+                        px-6
+                        py-24
+                    "
+                >
 
                     {/* Small Label */}
-                    <div className="text-center mb-5">
+
+                    <div className="flex justify-center mb-6">
+
                         <span
                             className="
                                 inline-flex
                                 items-center
-                                px-4
+                                gap-2
+                                px-5
                                 py-2
                                 rounded-full
-                                bg-accent/10
+                                bg-white/70
+                                backdrop-blur-md
+                                border
+                                border-accent/20
                                 text-accent
                                 text-xs
                                 font-bold
-                                tracking-[0.2em]
+                                tracking-[0.25em]
                                 uppercase
+                                shadow-sm
                             "
                         >
+
+                            <span
+                                className="
+                                    w-2
+                                    h-2
+                                    rounded-full
+                                    bg-accent
+                                    animate-pulse
+                                "
+                            ></span>
+
                             Our Collection
+
                         </span>
+
                     </div>
 
+
                     {/* Main Heading */}
-                    <div className="text-center mb-10">
+
+                    <div className="text-center">
 
                         <h1
                             className="
-                                text-4xl
-                                md:text-5xl
-                                lg:text-6xl
+                                text-5xl
+                                md:text-6xl
+                                lg:text-7xl
                                 font-bold
                                 text-secondary
                                 tracking-tight
+                                leading-[1.05]
                             "
                         >
-                            Find Something You Love
+                            Discover Your
+
+                            <span
+                                className="
+                                    block
+                                    text-accent
+                                    mt-2
+                                "
+                            >
+                                Beauty Essentials
+                            </span>
+
                         </h1>
+
 
                         <p
                             className="
-                                mt-4
-                                text-secondary/60
+                                max-w-2xl
+                                mx-auto
+                                mt-6
+                                text-secondary/65
                                 text-sm
                                 md:text-base
-                                max-w-xl
-                                mx-auto
-                                leading-relaxed
+                                leading-7
                             "
                         >
-                            Discover skincare, makeup, haircare, fragrances
-                            and beauty essentials made for you.
+                            Explore our carefully selected collection of
+                            skincare, makeup, haircare, fragrances and
+                            beauty essentials designed to make you feel
+                            confident and beautiful.
                         </p>
 
                     </div>
 
 
-                    {/* ================= SEARCH BAR ================= */}
-                    <div className="flex justify-center">
+                    {/* =================================================
+                        SEARCH BOX
+                    ================================================== */}
 
-                        <div className="w-full max-w-3xl">
+                    <div
+                        className="
+                            max-w-3xl
+                            mx-auto
+                            mt-10
+                        "
+                    >
 
-                            {/* Search Label */}
-                            <div
+                        <div
+                            className="
+                                flex
+                                items-center
+                                justify-between
+                                mb-3
+                                px-2
+                            "
+                        >
+
+                            <span
                                 className="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    mb-3
-                                    px-1
+                                    text-sm
+                                    font-semibold
+                                    text-secondary
                                 "
                             >
+                                Search our collection
+                            </span>
 
-                                <label
+
+                            {!isLoading && (
+
+                                <span
                                     className="
-                                        text-sm
-                                        font-semibold
-                                        text-secondary
+                                        text-xs
+                                        text-secondary/50
                                     "
                                 >
-                                    Search products
-                                </label>
+                                    {products.length}{" "}
+                                    {products.length === 1
+                                        ? "product"
+                                        : "products"}
+                                </span>
 
-                                {!isLoading && (
-                                    <span
-                                        className="
-                                            text-xs
-                                            text-secondary/50
-                                        "
-                                    >
-                                        {products.length}{" "}
-                                        {products.length === 1
-                                            ? "result"
-                                            : "results"}
-                                    </span>
-                                )}
+                            )}
 
-                            </div>
+                        </div>
 
 
-                            {/* Search Input Container */}
+                        {/* Search Input */}
+
+                        <div
+                            className="
+                                group
+                                relative
+                                w-full
+                                h-[68px]
+                                bg-white/85
+                                backdrop-blur-xl
+                                rounded-[22px]
+                                border
+                                border-white
+                                shadow-[0_20px_60px_rgba(6,32,43,0.12)]
+                                transition-all
+                                duration-500
+                                focus-within:-translate-y-1
+                                focus-within:shadow-[0_25px_70px_rgba(255,106,28,0.20)]
+                            "
+                        >
+
+                            {/* Search Icon */}
+
                             <div
                                 className="
-                                    relative
+                                    absolute
+                                    left-4
+                                    top-1/2
+                                    -translate-y-1/2
+                                    w-11
+                                    h-11
+                                    rounded-xl
+                                    bg-accent/10
                                     flex
                                     items-center
-                                    w-full
-                                    h-[64px]
-                                    bg-white
-                                    rounded-2xl
-                                    border-2
-                                    border-secondary/10
-                                    shadow-[0_12px_35px_rgba(6,32,43,0.10)]
+                                    justify-center
                                     transition-all
                                     duration-300
-                                    focus-within:border-accent
-                                    focus-within:shadow-[0_15px_40px_rgba(255,106,28,0.18)]
-                                    focus-within:-translate-y-1
+                                    group-focus-within:bg-accent
                                 "
                             >
 
-                                {/* Search Icon */}
-                                <div
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    stroke="currentColor"
                                     className="
-                                        absolute
-                                        left-5
-                                        flex
-                                        items-center
-                                        justify-center
-                                        w-10
-                                        h-10
-                                        rounded-xl
-                                        bg-accent/10
+                                        w-5
+                                        h-5
+                                        text-accent
+                                        group-focus-within:text-white
+                                        transition
                                     "
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="2"
-                                        stroke="currentColor"
-                                        className="w-5 h-5 text-accent"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.05 6.05a7.5 7.5 0 0 0 10.6 10.6Z"
-                                        />
-                                    </svg>
-                                </div>
+
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.05 6.05a7.5 7.5 0 0 0 10.6 10.6Z"
+                                    />
+
+                                </svg>
+
+                            </div>
 
 
-                                {/* Search Input */}
-                                <input
-                                    type="text"
-                                    onChange={async (e) => {
-                                        try {
-                                            if (e.target.value == "") {
-                                                setLoading(true);
-                                            } else {
-                                                const searchResults =
-                                                    await axios.get(
-                                                        import.meta.env
-                                                            .VITE_API_URL +
-                                                        "/api/products/search/" +
-                                                        e.target.value
-                                                    );
+                            <input
+                                type="text"
+                                onChange={async (e) => {
 
-                                                setProducts(
-                                                    searchResults.data
+                                    try {
+
+                                        if (e.target.value === "") {
+
+                                            setLoading(true);
+
+                                        } else {
+
+                                            const searchResults =
+                                                await axios.get(
+                                                    import.meta.env
+                                                        .VITE_API_URL +
+                                                    "/api/products/search/" +
+                                                    e.target.value
                                                 );
-                                            }
-                                        } catch {
-                                            toast.error("Search Failed");
+
+                                            setProducts(
+                                                searchResults.data
+                                            );
+
                                         }
-                                    }}
-                                    placeholder="Search for skincare, makeup, haircare..."
-                                    className="
-                                        w-full
-                                        h-full
-                                        pl-20
-                                        pr-6
-                                        bg-transparent
-                                        outline-none
-                                        border-none
-                                        text-secondary
-                                        text-base
-                                        placeholder:text-secondary/40
-                                        rounded-2xl
-                                    "
-                                />
 
-                            </div>
+                                    } catch (error) {
 
+                                        console.error(error);
 
-                            {/* Popular Search Categories */}
-                            <div
+                                        toast.error(
+                                            "Search Failed"
+                                        );
+
+                                    }
+
+                                }}
+                                placeholder="Search skincare, makeup, haircare..."
                                 className="
-                                    flex
-                                    flex-wrap
-                                    justify-center
-                                    items-center
-                                    gap-2
-                                    mt-4
+                                    w-full
+                                    h-full
+                                    pl-[78px]
+                                    pr-6
+                                    bg-transparent
+                                    outline-none
+                                    border-none
+                                    text-secondary
+                                    text-base
+                                    placeholder:text-secondary/35
+                                    rounded-[22px]
+                                "
+                            />
+
+                        </div>
+
+
+                        {/* Popular Categories */}
+
+                        <div
+                            className="
+                                flex
+                                flex-wrap
+                                justify-center
+                                gap-2
+                                mt-5
+                            "
+                        >
+
+                            <span
+                                className="
+                                    text-xs
+                                    text-secondary/40
+                                    mr-1
+                                    py-2
                                 "
                             >
+                                Explore:
+                            </span>
 
-                                <span
+
+                            {[
+                                "Skincare",
+                                "Makeup",
+                                "Haircare",
+                                "Fragrances"
+                            ].map((category) => (
+
+                                <button
+                                    key={category}
+                                    type="button"
                                     className="
-                                        text-xs
-                                        text-secondary/40
-                                        mr-1
+                                        px-4
                                         py-2
-                                    "
-                                >
-                                    Popular:
-                                </span>
-
-                                <span
-                                    className="
-                                        px-3
-                                        py-1.5
                                         rounded-full
-                                        bg-secondary/5
+                                        bg-white/60
+                                        backdrop-blur
+                                        border
+                                        border-secondary/5
                                         text-secondary/60
                                         text-xs
+                                        font-medium
+                                        hover:bg-accent
+                                        hover:text-white
+                                        hover:border-accent
+                                        transition-all
+                                        duration-300
+                                        hover:-translate-y-0.5
                                     "
                                 >
-                                    Skincare
-                                </span>
+                                    {category}
+                                </button>
 
-                                <span
-                                    className="
-                                        px-3
-                                        py-1.5
-                                        rounded-full
-                                        bg-secondary/5
-                                        text-secondary/60
-                                        text-xs
-                                    "
-                                >
-                                    Makeup
-                                </span>
-
-                                <span
-                                    className="
-                                        px-3
-                                        py-1.5
-                                        rounded-full
-                                        bg-secondary/5
-                                        text-secondary/60
-                                        text-xs
-                                    "
-                                >
-                                    Haircare
-                                </span>
-
-                                <span
-                                    className="
-                                        px-3
-                                        py-1.5
-                                        rounded-full
-                                        bg-secondary/5
-                                        text-secondary/60
-                                        text-xs
-                                    "
-                                >
-                                    Fragrances
-                                </span>
-
-                            </div>
+                            ))}
 
                         </div>
 
                     </div>
 
                 </div>
+
             </section>
 
 
-            {/* ================= PRODUCTS SECTION ================= */}
-            <section className="w-full px-6 pb-20">
+            {/* =====================================================
+                PRODUCTS SECTION
+            ====================================================== */}
+
+            <section
+                className="
+                    relative
+                    w-full
+                    px-6
+                    py-20
+                    bg-primary
+                "
+            >
 
                 <div className="max-w-7xl mx-auto">
 
-                    {/* Products Heading */}
+
+                    {/* Section Heading */}
+
                     <div
                         className="
                             flex
-                            items-center
-                            justify-between
-                            mb-8
+                            flex-col
+                            md:flex-row
+                            md:items-end
+                            md:justify-between
+                            gap-4
+                            mb-12
                         "
                     >
 
                         <div>
 
+                            <div
+                                className="
+                                    flex
+                                    items-center
+                                    gap-3
+                                    mb-3
+                                "
+                            >
+
+                                <div
+                                    className="
+                                        w-10
+                                        h-[3px]
+                                        rounded-full
+                                        bg-accent
+                                    "
+                                ></div>
+
+                                <span
+                                    className="
+                                        text-xs
+                                        uppercase
+                                        tracking-[0.2em]
+                                        font-bold
+                                        text-accent
+                                    "
+                                >
+                                    Beauty Collection
+                                </span>
+
+                            </div>
+
+
                             <h2
                                 className="
-                                    text-2xl
-                                    md:text-3xl
+                                    text-3xl
+                                    md:text-4xl
                                     font-bold
                                     text-secondary
                                 "
                             >
-                                Our Products
+                                Shop Our Products
                             </h2>
 
-                            <div
+
+                            <p
                                 className="
-                                    mt-2
-                                    w-12
-                                    h-1
-                                    rounded-full
-                                    bg-accent
+                                    mt-3
+                                    text-sm
+                                    text-secondary/50
+                                    max-w-lg
                                 "
-                            ></div>
+                            >
+                                Find something special for your everyday
+                                beauty routine.
+                            </p>
 
                         </div>
 
+
                         {!isLoading && (
-                            <span
+
+                            <div
                                 className="
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    self-start
+                                    md:self-auto
+                                    px-4
+                                    py-2
+                                    rounded-full
+                                    bg-white
+                                    border
+                                    border-secondary/5
+                                    shadow-sm
                                     text-sm
-                                    text-secondary/50
+                                    text-secondary/60
                                 "
                             >
+
+                                <span
+                                    className="
+                                        w-2
+                                        h-2
+                                        rounded-full
+                                        bg-accent
+                                    "
+                                ></span>
+
                                 {products.length}{" "}
                                 {products.length === 1
-                                    ? "product"
-                                    : "products"}
-                            </span>
+                                    ? "product available"
+                                    : "products available"}
+
+                            </div>
+
                         )}
 
                     </div>
 
 
-                    {/* ================= PRODUCTS ================= */}
+                    {/* =================================================
+                        LOADING
+                    ================================================== */}
+
                     {isLoading ? (
 
                         <div
@@ -374,71 +582,93 @@ export function ProductPage() {
                                 flex
                                 justify-center
                                 items-center
-                                min-h-[300px]
+                                min-h-[350px]
                             "
                         >
+
                             <Loader />
+
                         </div>
 
                     ) : products.length > 0 ? (
 
+                        /* =================================================
+                           PRODUCT GRID
+                        ================================================== */
+
                         <div
                             className="
-                                w-full
                                 grid
                                 grid-cols-1
                                 sm:grid-cols-2
                                 md:grid-cols-3
                                 lg:grid-cols-4
-                                gap-6
+                                gap-7
                             "
                         >
 
-                            {products.map((item) => {
+                            {products.map((item, index) => (
 
-                                console.log(item);
+                                <div
+                                    key={item.productID}
+                                    className="
+                                        animate-fadeIn
+                                        transition-all
+                                        duration-500
+                                        hover:-translate-y-2
+                                    "
+                                    style={{
+                                        animationDelay:
+                                            `${index * 0.07}s`,
+                                        animationFillMode:
+                                            "both"
+                                    }}
+                                >
 
-                                return (
                                     <ProductCard
-                                        key={item.productID}
                                         product={item}
                                     />
-                                );
 
-                            })}
+                                </div>
+
+                            ))}
 
                         </div>
 
                     ) : (
 
-                        /* ================= NO RESULTS ================= */
+                        /* =================================================
+                           NO PRODUCTS
+                        ================================================== */
+
                         <div
                             className="
+                                min-h-[350px]
+                                rounded-[30px]
+                                bg-white/50
+                                backdrop-blur
+                                border
+                                border-secondary/10
                                 flex
                                 flex-col
                                 items-center
                                 justify-center
-                                min-h-[320px]
-                                rounded-3xl
-                                border
-                                border-secondary/10
-                                bg-white/40
-                                px-6
                                 text-center
+                                px-6
+                                shadow-sm
                             "
                         >
 
-                            {/* Search Icon */}
                             <div
                                 className="
-                                    w-16
-                                    h-16
+                                    w-20
+                                    h-20
                                     rounded-full
                                     bg-accent/10
                                     flex
                                     items-center
                                     justify-center
-                                    mb-5
+                                    mb-6
                                 "
                             >
 
@@ -448,13 +678,19 @@ export function ProductPage() {
                                     viewBox="0 0 24 24"
                                     strokeWidth="1.8"
                                     stroke="currentColor"
-                                    className="w-7 h-7 text-accent"
+                                    className="
+                                        w-9
+                                        h-9
+                                        text-accent
+                                    "
                                 >
+
                                     <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.05 6.05a7.5 7.5 0 0 0 10.6 10.6Z"
                                     />
+
                                 </svg>
 
                             </div>
@@ -462,8 +698,8 @@ export function ProductPage() {
 
                             <h3
                                 className="
-                                    text-xl
-                                    font-semibold
+                                    text-2xl
+                                    font-bold
                                     text-secondary
                                 "
                             >
@@ -473,9 +709,9 @@ export function ProductPage() {
 
                             <p
                                 className="
-                                    mt-2
+                                    mt-3
                                     text-sm
-                                    text-secondary/60
+                                    text-secondary/55
                                 "
                             >
                                 Try searching with a different product name.
@@ -489,6 +725,111 @@ export function ProductPage() {
 
             </section>
 
+
+            {/* =====================================================
+                BOTTOM BEAUTY BANNER
+            ====================================================== */}
+
+            <section
+                className="
+                    relative
+                    mx-6
+                    mb-20
+                    max-w-7xl
+                    lg:mx-auto
+                    overflow-hidden
+                    rounded-[32px]
+                    bg-secondary
+                    px-8
+                    py-14
+                    md:px-14
+                "
+            >
+
+                {/* Orange glow */}
+
+                <div
+                    className="
+                        absolute
+                        -right-20
+                        -top-20
+                        w-64
+                        h-64
+                        rounded-full
+                        bg-accent/30
+                        blur-3xl
+                    "
+                ></div>
+
+
+                <div
+                    className="
+                        absolute
+                        -left-20
+                        -bottom-20
+                        w-60
+                        h-60
+                        rounded-full
+                        bg-primary/10
+                        blur-3xl
+                    "
+                ></div>
+
+
+                <div
+                    className="
+                        relative
+                        z-10
+                        max-w-2xl
+                    "
+                >
+
+                    <span
+                        className="
+                            text-accent
+                            text-xs
+                            font-bold
+                            uppercase
+                            tracking-[0.25em]
+                        "
+                    >
+                        Crystal Beauty Clear
+                    </span>
+
+
+                    <h2
+                        className="
+                            mt-4
+                            text-3xl
+                            md:text-4xl
+                            font-bold
+                            text-primary
+                        "
+                    >
+                        Beauty made simple.
+                        <span className="text-accent">
+                            {" "}Beauty made for you.
+                        </span>
+                    </h2>
+
+
+                    <p
+                        className="
+                            mt-4
+                            text-primary/60
+                            text-sm
+                            leading-7
+                        "
+                    >
+                        Discover products that fit your beauty routine
+                        and express your unique style.
+                    </p>
+
+                </div>
+
+            </section>
+
         </div>
+
     );
 }
