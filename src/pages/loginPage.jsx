@@ -35,6 +35,7 @@ export default function LoginPage() {
 
 
         console.log("GOOGLE LOGIN RESPONSE:", res.data);
+        console.log("GOOGLE TOKEN:", res.data.token);
 
 
         localStorage.setItem(
