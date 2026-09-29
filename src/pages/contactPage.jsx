@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -18,27 +19,29 @@ export default function ContactPage() {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        const { name, email, subject, message } = formData;
+    const { name, email, subject, message } = formData;
 
-        if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
-            toast.error("Please fill in all fields.");
-            return;
-        }
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+        toast.error("Please fill in all fields.");
+        return;
+    }
 
-        // Opens the user's email application
-        const mailtoLink =
-            `mailto:chathuminisenethya246@gmail.com` +
-            `?subject=${encodeURIComponent(subject)}` +
-            `&body=${encodeURIComponent(
-                `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-            )}`;
+    try {
 
-        window.location.href = mailtoLink;
+        await axios.post(
+            import.meta.env.VITE_API_URL + "/api/users/contact",
+            {
+                name,
+                email,
+                subject,
+                message
+            }
+        );
 
-        toast.success("Opening your email application...");
+        toast.success("Message sent successfully!");
 
         setFormData({
             name: "",
@@ -46,7 +49,22 @@ export default function ContactPage() {
             subject: "",
             message: "",
         });
-    };
+
+    } catch (error) {
+
+        console.error("CONTACT ERROR:", error);
+
+        toast.error(
+            error.response?.data?.message ||
+            "Failed to send message. Please try again."
+        );
+    }
+};
+   
+   
+   
+   
+   
 
     return (
         <div className="min-h-screen bg-primary text-secondary">
