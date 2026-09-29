@@ -21,8 +21,7 @@ export default function LoginPage() {
     flow: "auth-code",
     ux_mode: "redirect",
     
-
-    redirect_uri: "https://skyrec-frontend-p8zn.vercel.app",
+    redirect_uri: "https://skyrec-frontend-p8zn.vercel.app/login",
     onSuccess: async (response) => {
 
       try {
