@@ -18,6 +18,7 @@ export default function LoginPage() {
 
   const googleLogin = useGoogleLogin({
 
+    ux_mode: "redirect",
     onSuccess: async (response) => {
 
       try {
