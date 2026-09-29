@@ -1,6 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -81,6 +81,75 @@ export default function LoginPage() {
     }
 
   });
+
+  useEffect(() => {
+
+  const params = new URLSearchParams(window.location.search);
+
+  const code = params.get("code");
+
+  if (!code) {
+    return;
+  }
+
+  async function loginWithGoogleCode() {
+
+    try {
+
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + "/api/users/google-login",
+        {
+          code: code
+        }
+      );
+
+      console.log("GOOGLE LOGIN RESPONSE:", res.data);
+      console.log("GOOGLE TOKEN:", res.data.token);
+
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
+
+      window.history.replaceState(
+        {},
+        document.title,
+        "/login"
+      );
+
+      toast.success("Google login successful!");
+
+      const user = res.data.user;
+
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Google login failed:",
+        error
+      );
+
+      toast.error(
+        "Google login failed. Please try again"
+      );
+
+    }
+
+  }
+
+  loginWithGoogleCode();
+
+}, [navigate]);
 
 
 
