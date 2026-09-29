@@ -17,8 +17,11 @@ export default function LoginPage() {
   // ==========================
 
   const googleLogin = useGoogleLogin({
-
+    
+    flow: "auth-code",
     ux_mode: "redirect",
+
+    redirect_uri: "https://skyrec-frontend-p8zn.vercel.app",
     onSuccess: async (response) => {
 
       try {
@@ -26,7 +29,7 @@ export default function LoginPage() {
         const res = await axios.post(
           import.meta.env.VITE_API_URL + "/api/users/google-login",
           {
-            token: response.access_token
+             code: response.code
           }
         );
 
