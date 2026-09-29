@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Header from "../components/header.jsx";
 import { ProductPage } from "./productPage.jsx";
 import ProductOverview from "./productOverview.jsx";
 import CartPage from "./cart.jsx";
@@ -10,10 +11,11 @@ import ContactPage from "./contactPage.jsx";
 import OrdersPage from "./ordersPage.jsx";
 import MenuPage from "./menuPage.jsx";
 
+
 export default function HomePage() {
     return (
         <div className="w-full h-full bg-primary">
-        
+        <Header/>
 
             <Routes>
                 <Route 
